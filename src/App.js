@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import './App.css'
-
+import Navbar from './components/navbar/Navbar';
+import { ShowModal } from './components/modalpop/Modalpop'
+import axios from 'axios';
+import CardList from './components/card/CardList';
 const COLORS = {
   Psychic: "#f8a5c2",
   Fighting: "#f0932b",
@@ -16,9 +19,45 @@ const COLORS = {
 }
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+       cards:[],
+       myCards:[]
+    }
+  }
+  
+  getDataList() {
+    axios.get(`http://localhost:3030/api/cards`)
+    .then(res => {
+      const cards = res.data;
+      if(res.status === 200) {
+        this.setState({ cards: cards.cards });
+      }
+    })
+  }
+
+  componentDidMount() {
+   this.getDataList();
+  }
+  addItem(props) {
+    const selected = this.state.myCards;
+    selected.push(props);
+    this.setState({
+      myCards:selected
+    })
+  }
   render() {
     return (
-      <div className="App">
+      <div className="app">
+        <Navbar />
+        <div className="app-content">
+        <CardList cards={this.state.myCards} showMycards={true}/>
+        </div>
+        <div className="buttons__bar">
+          <a className="buttons__add" onClick={()=>ShowModal(this.state.cards, this.addItem.bind(this))}><span>+</span></a>
+        </div>
       </div>
     )
   }
