@@ -4,11 +4,10 @@ import swal from 'sweetalert2';
 import CardList from '../card/CardList';
 
 export const ShowModalHtml=(props)=>{
-
 	return(
 		<div>
-			<input type="search" name="search" className='inputsearch' />
-			<CardList cards={props.cards} func={props.func} />
+			<input type="text" onChange={props.handleChange.bind(this)} name="search" className='inputsearch' />
+			<CardList cards={props.cards} add={props.add} />
 		</div>
 	)
 }

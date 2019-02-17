@@ -1,15 +1,32 @@
 import React from 'react';
 import './cards.scss'
+import cute from '../../cute.png'
 const CardList = (props) => {
+	console.log(cute)
     return (
         <ul className={"cards__list " + (props.showMycards ? 'half' : null) }>
 			{props.cards.map((item,index) => {
+				const damageValue =  item.attacks && item.attacks.length > 0 && item.attacks.map((damage)=> Number(damage.damage.replace(/[^0-9]/g, "")) )
+				var sum = 0;
+				for (var i = 0; damageValue && i < damageValue.length; i++) {
+					sum += damageValue[i]
+				}
+				const hp = item.hp > 100 ? 100 : item.hp;
+				const damage = sum;
+				const strLength = item.attacks && item.attacks.length ? item.attacks.length : 0;
+				const weaknessLength = item.weaknesses && item.weaknesses.length > 0 ? item.weaknesses.length : 0;
+				const happiness = Math.ceil(((hp / 10) + (damage /10 ) + 10 - (weaknessLength)) / 5);
+				const happinessImg = [];
+				for (let i = 0; happiness && i < happiness.length; i++) {
+					happinessImg.push('1' );
+				}
+				console.log(happinessImg)
 				return (
-					<li>
-                        <a className="cards__button" onClick={()=>props.func(item)}>
+					<li key={item.id+index}>
+                        <a className="cards__button" onClick={props.showMycards ?  ()=>props.deleteFunc(item.id) : ()=>props.add(item)}>
 						<div className="cards__box">
-							<div className="cards__img"><img src={item.imageUrl} /></div>
-							<div className="cards__content">
+							<div className={"cards__img " + (props.showMycards ? 'full' : '')}><img src={item.imageUrl} /></div>
+							<div className={"cards__content " + (props.showMycards ? 'full' : '')}>
 								<p>{item.name}</p>
 								<div>
 									<div>
@@ -21,18 +38,24 @@ const CardList = (props) => {
 									<div>
 										<span>STR</span>
 										<div className="cards__gate">
-                                            <span className="cards__inner-gate" style={{'width':  '0%'}}></span>
+                                            <span className="cards__inner-gate" style={{'width': (strLength === 1 ? '50' : strLength === 2 ? '100' : 0) + '%'}} >
+											</span>
                                         </div>
 									</div>
 									<div>
 										<span>WEAK</span>
 										<div className="cards__gate">
-                                            <span className="cards__inner-gate" style={{'width':'50%'}}></span>
+                                            <span className="cards__inner-gate" style={{'width': (weaknessLength === 1 ? '100' : 0)+'%'}}></span>
                                         </div>
+									</div>
+									<div id="happinessimg">
+										
+										<img src={cute} />
+										{happiness}
 									</div>
 								</div>
 							</div>
-							<div className="cards__add" >Add</div>
+							<div className="cards__add" >{props.showMycards ? 'X' : 'Add'}</div>
 						</div>
                         </a>
 					</li>

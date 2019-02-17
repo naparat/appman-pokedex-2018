@@ -6,10 +6,10 @@ import {
 	ShowModalHtml,
 } from './Modalhtml'
 
-export const ShowModal=(data,func)=> {
-	const reactSwal = withReactContent(swal);
+export const ShowModal=(data,add,handleChange)=> {
+	const reactSwal = withReactContent(swal)
 	reactSwal.fire({
-		html: <ShowModalHtml cards={data} func={func} />,
+		html: <ShowModalHtml cards={data} add={add} handleChange={()=>handleChange()} />,
 		customClass: 'container',
 		showConfirmButton: false,
 		showCloseButton: false,

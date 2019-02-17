@@ -34,11 +34,11 @@
                     display:none;
                 }
             }
-            &:hover {
-                .cards__add{
-                    display:none;
-                }
-            }
+            // &:hover {
+            //     .cards__add{
+            //         display:none;
+            //     }
+            // }
         }
 	}
 	&__box {
@@ -52,16 +52,25 @@
 		img {
 			max-width: 100%;
 		}
+		&.full {
+			width:65%;
+			img{
+				max-width: 100%;
+			}
+		}
 	}
 	&__content {
 		width: 80%;
 		padding:0 2em;
+		&.full {
+			padding:0 .5em;
+		}
 	}
 	&__gate {
 		max-width: 200px;
         border-radius: 20px;
         position: relative;
-        height:10px;
+        height:18px;
 		background: #e4e4e4;
     }
     &__inner-gate {
@@ -73,4 +82,11 @@
         top: 0;
     }
 	
+}
+
+#happinessimg {
+	margin:1em 0;
+	img {
+		max-width: 35px;
+	}
 }
