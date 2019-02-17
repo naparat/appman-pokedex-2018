@@ -2,7 +2,6 @@ import React from 'react';
 import './cards.scss'
 import cute from '../../cute.png'
 const CardList = (props) => {
-	console.log(cute)
     return (
         <ul className={"cards__list " + (props.showMycards ? 'half' : null) }>
 			{props.cards.map((item,index) => {
@@ -16,11 +15,7 @@ const CardList = (props) => {
 				const strLength = item.attacks && item.attacks.length ? item.attacks.length : 0;
 				const weaknessLength = item.weaknesses && item.weaknesses.length > 0 ? item.weaknesses.length : 0;
 				const happiness = Math.ceil(((hp / 10) + (damage /10 ) + 10 - (weaknessLength)) / 5);
-				const happinessImg = [];
-				for (let i = 0; happiness && i < happiness.length; i++) {
-					happinessImg.push('1' );
-				}
-				console.log(happinessImg)
+
 				return (
 					<li key={item.id+index}>
                         <a className="cards__button" onClick={props.showMycards ?  ()=>props.deleteFunc(item.id) : ()=>props.add(item)}>
@@ -49,7 +44,6 @@ const CardList = (props) => {
                                         </div>
 									</div>
 									<div id="happinessimg">
-										
 										<img src={cute} />
 										{happiness}
 									</div>
