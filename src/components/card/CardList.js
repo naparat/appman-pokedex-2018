@@ -10,11 +10,11 @@ const CardList = (props) => {
 				for (var i = 0; damageValue && i < damageValue.length; i++) {
 					sum += damageValue[i]
 				}
-				const hp = item.hp > 100 ? 100 : item.hp;
+				const hp = item.hp > 100 ? 100 : item.hp != 'None' ? item.hp : 0;
 				const damage = sum;
 				const strLength = item.attacks && item.attacks.length ? item.attacks.length : 0;
 				const weaknessLength = item.weaknesses && item.weaknesses.length > 0 ? item.weaknesses.length : 0;
-				const happiness = Math.ceil(((hp / 10) + (damage /10 ) + 10 - (weaknessLength)) / 5);
+				const happiness = Math.ceil(((hp / 10) + (damage /10 ) + 10 - (weaknessLength ? weaknessLength : 0)) / 5);
 
 				return (
 					<li key={item.id+index}>
